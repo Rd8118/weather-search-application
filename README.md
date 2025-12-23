@@ -157,7 +157,6 @@ GET /api/weather/health
 - **Weather Card**: Beautiful card with glassmorphism effect
 - **Temperature Display**: Large, easy-to-read temperature
 - **Weather Details Grid**: 8 detailed weather metrics
-- **Cache Indicator**: Shows when data is served from cache
 - **Cache Stats Panel**: Toggle to view cache performance
 - **Loading States**: Smooth loading animations
 - **Error Handling**: User-friendly error messages
@@ -245,7 +244,7 @@ cors.allowed-origins=http://localhost:4200
 
 ## 🚧 Error Handling
 
-The application handles various error scenarios:
+The application handles various error scenarios:(are viisible on the browser console)
 - **City Not Found (404)**: Invalid city name
 - **Bad Request (400)**: Missing or invalid parameters
 - **Service Unavailable (503)**: External API down
@@ -291,7 +290,3 @@ This project is created for educational purposes.
 
 **Note**: Remember to add your OpenWeatherMap API key in `backend/src/main/resources/application.properties` before running the application.
 ```
-
----
-S_Store
-Thumbs.db
