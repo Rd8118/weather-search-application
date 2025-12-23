@@ -1,0 +1,37 @@
+<div class="search-container">
+  <div class="search-box">
+    <input
+      type="text"
+      [(ngModel)]="cityName"
+      (keypress)="onKeyPress($event)"
+      placeholder="Enter city name (e.g., London, Mumbai,Pune)"
+      class="search-input"
+      [class.error]="errorMessage"
+    />
+    
+    <button 
+      (click)="onSearch()" 
+      class="search-button"
+      [disabled]="!cityName || cityName.trim().length === 0"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="11" cy="11" r="8"></circle>
+        <path d="m21 21-4.35-4.35"></path>
+      </svg>
+      Search
+    </button>
+
+    <button 
+      *ngIf="cityName" 
+      (click)="clearSearch()" 
+      class="clear-button"
+      title="Clear"
+    >
+      ✕
+    </button>
+  </div>
+
+  <div *ngIf="errorMessage" class="error-message">
+    {{ errorMessage }}
+  </div>
+</div>

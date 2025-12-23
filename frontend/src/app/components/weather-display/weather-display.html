@@ -1,0 +1,119 @@
+<div *ngIf="weather" class="weather-card" [ngClass]="getWeatherBackground()">
+  <!-- Header Section -->
+  <div class="weather-header">
+    <div class="location">
+      <h1 class="city-name">{{ weather.cityName }}</h1>
+      <p class="country">{{ weather.country }}</p>
+    </div>
+    <div class="cache-indicator" *ngIf="weather.fromCache">
+      <span class="cache-badge">⚡ From Cache</span>
+    </div>
+  </div>
+
+  <!-- Main Weather Info -->
+  <div class="weather-main">
+    <div class="temperature-section">
+      <div class="current-temp">
+        <span class="temp-value">{{ roundTemp(weather.temperature) }}</span>
+        <span class="temp-unit">°C</span>
+      </div>
+      <div class="weather-icon">
+        <img 
+          [src]="'https://openweathermap.org/img/wn/' + weather.weatherIcon + '@4x.png'" 
+          [alt]="weather.weatherDescription"
+        />
+      </div>
+    </div>
+    
+    <div class="weather-description">
+      <p class="main-condition">{{ weather.weatherMain }}</p>
+      <p class="description">{{ weather.weatherDescription }}</p>
+      <p class="feels-like">Feels like {{ roundTemp(weather.feelsLike) }}°C</p>
+    </div>
+  </div>
+
+  <!-- Temperature Range -->
+  <div class="temp-range">
+    <div class="temp-item">
+      <span class="label">Min</span>
+      <span class="value">{{ roundTemp(weather.tempMin) }}°C</span>
+    </div>
+    <div class="temp-divider"></div>
+    <div class="temp-item">
+      <span class="label">Max</span>
+      <span class="value">{{ roundTemp(weather.tempMax) }}°C</span>
+    </div>
+  </div>
+
+  <!-- Weather Details Grid -->
+  <div class="weather-details">
+    <div class="detail-card">
+      <div class="detail-icon">💧</div>
+      <div class="detail-content">
+        <p class="detail-label">Humidity</p>
+        <p class="detail-value">{{ weather.humidity }}%</p>
+      </div>
+    </div>
+
+    <div class="detail-card">
+      <div class="detail-icon">🌪️</div>
+      <div class="detail-content">
+        <p class="detail-label">Wind Speed</p>
+        <p class="detail-value">{{ weather.windSpeed }} m/s</p>
+        <p class="detail-extra">{{ getWindDirection(weather.windDegree) }}</p>
+      </div>
+    </div>
+
+    <div class="detail-card">
+      <div class="detail-icon">🔽</div>
+      <div class="detail-content">
+        <p class="detail-label">Pressure</p>
+        <p class="detail-value">{{ weather.pressure }} hPa</p>
+      </div>
+    </div>
+
+    <div class="detail-card">
+      <div class="detail-icon">☁️</div>
+      <div class="detail-content">
+        <p class="detail-label">Cloudiness</p>
+        <p class="detail-value">{{ weather.cloudiness }}%</p>
+      </div>
+    </div>
+
+    <div class="detail-card">
+      <div class="detail-icon">👁️</div>
+      <div class="detail-content">
+        <p class="detail-label">Visibility</p>
+        <p class="detail-value">{{ getVisibilityKm(weather.visibility) }} km</p>
+      </div>
+    </div>
+
+    <div class="detail-card">
+      <div class="detail-icon">🌅</div>
+      <div class="detail-content">
+        <p class="detail-label">Sunrise</p>
+        <p class="detail-value">{{ formatTime(weather.sunrise) }}</p>
+      </div>
+    </div>
+
+    <div class="detail-card">
+      <div class="detail-icon">🌇</div>
+      <div class="detail-content">
+        <p class="detail-label">Sunset</p>
+        <p class="detail-value">{{ formatTime(weather.sunset) }}</p>
+      </div>
+    </div>
+    <div class="detail-card">
+      <div class="detail-icon">📍</div>
+      <div class="detail-content">
+        <p class="detail-label">Coordinates</p>
+        <p class="detail-value">{{ weather.latitude.toFixed(2) }}, {{ weather.longitude.toFixed(2) }}</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="weather-footer">
+    <p class="timestamp">Last updated: {{ weather.timestamp | date:'medium' }}</p>
+  </div>
+</div>

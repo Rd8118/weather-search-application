@@ -1,0 +1,79 @@
+<div class="app-container">
+  <!-- Header -->
+  <header class="app-header">
+    <div class="header-content">
+      <h1 class="app-title">
+        <span class="icon">🌤️</span>
+        {{ title }}
+      </h1>
+      <p class="app-subtitle">Get real-time weather information for any city worldwide</p>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <!-- Search Bar -->
+    <app-search-bar (searchCity)="onSearchCity($event)"></app-search-bar>
+
+    <!-- Error Message -->
+    <div *ngIf="errorMessage && !isLoading" class="error-container">
+      <div class="error-box">
+        <span class="error-icon">⚠️</span>
+        <p class="error-text">{{ errorMessage }}</p>
+        <button class="retry-button" (click)="clearData()">Try Again</button>
+      </div>
+    </div>
+
+    <!-- Loading Spinner -->
+    <app-loading-spinner *ngIf="isLoading"></app-loading-spinner>
+
+    <!-- Weather Display -->
+    <app-weather-display 
+      *ngIf="weatherData && !isLoading" 
+      [weather]="weatherData">
+    </app-weather-display>
+
+    <!-- Cache Statistics Toggle -->
+    <div *ngIf="weatherData && cacheStats" class="cache-stats-container">
+      <button class="stats-toggle-button" (click)="toggleCacheStats()">
+        {{ showCacheStats ? '📊 Hide Cache Stats' : '📊 Show Cache Stats' }}
+      </button>
+
+      <div *ngIf="showCacheStats" class="cache-stats-panel">
+        <h3>Cache Performance</h3>
+        <div class="stats-grid">
+          <div class="stat-item">
+            <span class="stat-label">Cache Hits</span>
+            <span class="stat-value">{{ cacheStats.hitCount }}</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">Cache Misses</span>
+            <span class="stat-value">{{ cacheStats.missCount }}</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">Hit Rate</span>
+            <span class="stat-value success">{{ cacheStats.hitRatePercentage }}</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">Miss Rate</span>
+            <span class="stat-value warning">{{ cacheStats.missRatePercentage }}</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">Cache Size</span>
+            <span class="stat-value">{{ cacheStats.estimatedSize }}</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">Evictions</span>
+            <span class="stat-value">{{ cacheStats.evictionCount }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="app-footer">
+    <p>Powered by OpenWeatherMap API | Built with Angular & Spring Boot</p>
+    <p class="cache-info">⚡ Intelligent caching for improved performance</p>
+  </footer>
+</div>
